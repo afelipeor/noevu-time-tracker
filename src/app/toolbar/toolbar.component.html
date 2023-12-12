@@ -1,1 +1,20 @@
-<p>toolbar works!</p>
+<div class="toolbar-container">
+  <select name="canton-select"
+          class="canton-select">
+    @for(canton of cantonList; track canton.kanCode){
+    <option value="canton">{{canton.kanName}}</option>
+    }
+  </select>
+  <div class="days-to-show">
+    @for(ammount of ammountOfDays; track ammount){
+    <label class="radio-buttons"
+           [for]="(ammount+'RadioButton')">
+      {{ammount}}
+      <input type="radio"
+             [id]="(ammount+'RadioButton')"
+             name="ammountOfDays"
+             [value]="ammount" />
+    </label>
+    }
+  </div>
+</div>
