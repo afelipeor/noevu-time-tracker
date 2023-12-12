@@ -1,4 +1,5 @@
-<app-toolbar (numberOfDaysToShow)="setNumberOfDaysToShow($event)" />
+<app-toolbar (numberOfDaysToShow)="setNumberOfDaysToShow($event)"
+             (cantonToShow)="setSelectedCanton($event)" />
 
 @for (daysToShow of numberOfDaysToShow; track daysToShow.day) {
 <app-calendar-day />
