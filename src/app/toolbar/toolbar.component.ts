@@ -22,7 +22,7 @@ export class ToolbarComponent implements OnInit {
     public cantonList: CantonModel[] = [];
     public ammountOfDays: string[] = ['Day', 'Week', 'Month'];
     public daysToShow: string = 'Week';
-    public selectedDate: Date = new Date();
+    public selectedDate: string = new Date().toLocaleDateString('en-US');
     public selectedCanton: CantonModel | null = null;
     private calendar: CalendarModel[] = [];
 
@@ -38,23 +38,25 @@ export class ToolbarComponent implements OnInit {
     }
 
     public setNumberOfDaysToShow(numberOfDays: string) {
-        const month = this.selectedDate.getMonth();
-        const year = this.selectedDate.getFullYear();
+        const date = new Date(this.selectedDate);
+        const month = date.getMonth();
+        const year = date.getFullYear();
+
         this.daysToShow = numberOfDays;
         this.calendar = [];
+
         if (numberOfDays === 'Day') {
             this.calendar = [new CalendarModel()];
         } else if (numberOfDays === 'Week') {
-            const daysInWeek = this.calendarService.getDaysInSelectedWeek(
-                this.selectedDate
-            );
+            const daysInWeek = this.calendarService.getDaysInSelectedWeek(date);
             daysInWeek.forEach((day) => {
-                this.calendar.push(new CalendarModel(Number(day), month, year));
+                this.calendar.push(
+                    new CalendarModel(day.date.getDate(), month, year)
+                );
             });
         } else if (numberOfDays === 'Month') {
-            const daysInMonth = this.calendarService.getDaysInSelectedMonth(
-                this.selectedDate
-            );
+            const daysInMonth =
+                this.calendarService.getDaysInSelectedMonth(date);
             for (let day = 1; day < daysInMonth + 1; day++) {
                 this.calendar.push(new CalendarModel(day, month, year));
             }
@@ -64,6 +66,11 @@ export class ToolbarComponent implements OnInit {
 
     public emitSelectedCanton(code: CantonModel) {
         this.cantonToShow.emit(code);
+    }
+
+    public updateDates(date: string) {
+        this.selectedDate = date;
+        this.setNumberOfDaysToShow(this.daysToShow);
     }
 
     private getCantons(): void {
