@@ -3,7 +3,7 @@
 
 .toolbar-container {
     display: flex;
-    background-color: $beige;
+    background-color: $white;
     justify-content: space-between;
     padding: 1rem;
     overflow: hidden;
@@ -44,7 +44,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.5s ease-in-out;
+            transition: all 0.2s ease-in-out;
 
             &.checked {
                 background-color: $blue;
@@ -75,7 +75,7 @@
 
     input,
     select {
-        transition: all 0.5s ease-in-out;
+        transition: all 0.2s ease-in-out;
 
         &:hover,
         &:focus {

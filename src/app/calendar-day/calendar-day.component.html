@@ -1,1 +1,6 @@
-<p>calendar-day works!</p>
+@if(dayToShow){
+<div class="calendar-day"
+     [ngClass]="{'is-month': calendarType === allCalendarTypes.month}">
+    <p class="title">{{dayToShow.day}}</p>
+</div>
+}
