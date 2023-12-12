@@ -1,1 +1,6 @@
-<p>calendar-base works!</p>
+<app-toolbar (numberOfDaysToShow)="setNumberOfDaysToShow($event)"
+             (cantonToShow)="setSelectedCanton($event)" />
+
+@for (daysToShow of numberOfDaysToShow; track daysToShow.day) {
+<app-calendar-day />
+}
