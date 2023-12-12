@@ -16,6 +16,19 @@
         text-transform: uppercase;
     }
 
+    .select-date {
+        display: flex;
+
+        input {
+            height: 3rem;
+            font-size: 1.2rem;
+            padding: 0 0.5rem;
+            text-transform: uppercase;
+            background-color: $beige;
+            border: 1px solid $blue;
+        }
+    }
+
     .days-to-show {
         display: flex;
         flex-direction: row;
@@ -57,6 +70,17 @@
                 position: absolute;
                 cursor: pointer;
             }
+        }
+    }
+
+    input,
+    select {
+        transition: all 0.5s ease-in-out;
+
+        &:hover,
+        &:focus {
+            font-weight: bold;
+            box-shadow: 2px 2px 0 $blue;
         }
     }
 
