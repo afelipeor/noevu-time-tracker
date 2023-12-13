@@ -1,13 +1,32 @@
 @import "./variables";
 
-@mixin display($breakpoints) {
-    $conditions: ();
-    @each $breakpoint in $breakpoints {
-        // If the key exists in the map
-        $conditions: append($conditions, #{inspect(map-get($media_queries, $breakpoint))}, comma);
+// media devices
+@mixin xs {
+    @media screen and (max-width: #{$screen-xs-max}) {
+        @content;
     }
+}
 
-    @media #{$conditions} {
+@mixin sm {
+    @media screen and (min-width: #{$screen-sm-min}) and (max-width: #{$screen-sm-max}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media screen and (min-width: #{$screen-md-min}) and (max-width: #{$screen-md-max}) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media screen and (min-width: #{$screen-lg-min}) and (max-width: #{$screen-lg-max}) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media screen and (min-width: #{$screen-xl-min}) and (max-width: #{$screen-xl-max}) {
         @content;
     }
 }

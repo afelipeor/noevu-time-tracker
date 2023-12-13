@@ -26,7 +26,7 @@ export class ToolbarComponent implements OnInit {
     public cantonList: CantonModel[] = [];
     public calendarEnum: CalendarTypesType = CalendarTypeEnum;
     public ammountOfDays: string[] = Object.values(CalendarTypeEnum);
-    public daysToShow: string = this.calendarEnum.week;
+    public daysToShow: string = this.calendarEnum.year;
     public selectedDate: string = new Date().toLocaleDateString('en-US');
     public selectedCanton: CantonModel | null = null;
     private calendar: CalendarModel[] = [];
@@ -74,7 +74,10 @@ export class ToolbarComponent implements OnInit {
             this.setDaysInMonth(date, month, year);
         } else if (numberOfDays === CalendarTypeEnum.year) {
             for (let i = 1; i <= 12; i++) {
-                this.setDaysInMonth(date, i, year);
+                const monthDate = new Date(
+                    this.calendarService.formatDateString(1, i, year)
+                );
+                this.setDaysInMonth(monthDate, i, year);
             }
         }
         this.numberOfDaysToShow.emit(this.calendar);
@@ -113,17 +116,19 @@ export class ToolbarComponent implements OnInit {
     }
 
     /**
-     * The function sets the number of days in a month for a given date, month, and year.
-     * @param {Date} date - The `date` parameter is the current date for which you want to set the days
-     * in the month.
-     * @param {number} month - The month parameter is a number that represents the month of the year.
-     * It should be a value between 1 and 12, where 1 represents January and 12 represents December.
+     * The function sets the days in a month based on the given date, month, and year.
+     * @param {Date} date - The `date` parameter is of type `Date` and represents the current date.
+     * @param {number} month - The month parameter is a number representing the month of the year. It
+     * should be a value between 1 and 12, where 1 represents January and 12 represents December.
      * @param {number} year - The year parameter is the year for which you want to set the days in the
      * month.
      */
     private setDaysInMonth(date: Date, month: number, year: number): void {
         const daysInMonth = this.calendarService.getDaysInSelectedMonth(date);
         for (let day = 1; day < daysInMonth + 1; day++) {
+            if (day === 1 && this.daysToShow !== this.calendarEnum.year) {
+                this.getDaysInPreviousMonth(day, month, year);
+            }
             this.calendar.push(new CalendarModel(day, month, year));
         }
     }
@@ -143,5 +148,23 @@ export class ToolbarComponent implements OnInit {
                 new CalendarModel(day.date.getDate(), month, year)
             );
         });
+    }
+
+    /**
+     * The function retrieves the number of days in the previous month given a specific day, month, and
+     * year.
+     * @param {number} day - The day parameter represents the day of the month.
+     * @param {number} month - The month parameter represents the current month for which you want to
+     * get the previous month's days. It is a number that represents the month, where January is 1,
+     * February is 2, and so on.
+     * @param {number} year - The year parameter represents the year for which you want to get the days
+     * in the previous month.
+     */
+    private getDaysInPreviousMonth(day: number, month: number, year: number) {
+        this.calendar = this.calendarService.getDaysInPreviousMonth(
+            day,
+            month,
+            year
+        );
     }
 }
