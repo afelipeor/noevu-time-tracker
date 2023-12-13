@@ -68,7 +68,7 @@ export class CalendarDayComponent implements OnInit {
             classList = `${classList} darken`;
         }
         if (this.calendarType === this.allCalendarTypes.year) {
-            classList = `${classList} tooltip`;
+            classList = `${classList} has-tooltip`;
         }
         if (this.dayToShowWeekDay === 0) {
             classList = `${classList} right`;

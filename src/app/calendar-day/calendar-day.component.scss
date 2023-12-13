@@ -40,29 +40,31 @@
         }
     }
 
-    &:hover {
-        transform: scale(2);
-        z-index: 10000000000000000;
+    &.has-tooltip {
+        &:hover {
+            transform: scale(2);
+            z-index: 10000000000000000;
 
-        .main-area {
-            p {
-                &.tooltip {
-                    display: flex;
-                    font-size: 0.6rem;
+            .main-area {
+                p {
+                    &.tooltip {
+                        display: flex;
+                        font-size: 0.6rem;
+                    }
                 }
             }
-        }
 
-        @include xs {
-            width: 200%;
-            &.is-year {
-                font-size: 0.7rem;
+            @include xs {
+                width: 200%;
+                &.is-year {
+                    font-size: 0.7rem;
+                }
             }
-        }
-        @include sm {
-            width: 200%;
-            &.is-year {
-                font-size: 0.7rem;
+            @include sm {
+                width: 200%;
+                &.is-year {
+                    font-size: 0.7rem;
+                }
             }
         }
     }
