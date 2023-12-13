@@ -21,6 +21,7 @@ export class ToolbarComponent implements OnInit {
     @Output() cantonToShow: EventEmitter<CantonModel | null> =
         new EventEmitter();
     @Output() calendarType: EventEmitter<string> = new EventEmitter();
+    @Output() selectedDay: EventEmitter<string> = new EventEmitter();
 
     public cantonList: CantonModel[] = [];
     public calendarEnum: CalendarTypesType = CalendarTypeEnum;
@@ -38,6 +39,9 @@ export class ToolbarComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.selectedDay.emit(
+            this.selectedDate.replace(/(\d\d)\/(\d\d)\/(\d{4})/, '$3-$1-$2')
+        );
         this.setNumberOfDaysToShow(this.daysToShow);
     }
 
@@ -48,12 +52,16 @@ export class ToolbarComponent implements OnInit {
      * `CalendarTypeEnum`, which is an enumeration representing different types of calendar views.
      */
     public setNumberOfDaysToShow(numberOfDays: string) {
-        const date = new Date(this.selectedDate);
-        const month = date.getMonth();
+        const formatedDate = this.selectedDate.replace(
+            /(\d\d)\/(\d\d)\/(\d{4})/,
+            '$3-$1-$2'
+        );
+        const date = new Date(
+            this.calendarService.setDateInTimezone(formatedDate)
+        );
+        const month = date.getMonth() + 1;
         const year = date.getFullYear();
 
-        console.log('this.daysToShow:', this.daysToShow);
-        console.log('numberOfDays:', numberOfDays);
         this.daysToShow = numberOfDays;
         this.calendar = [];
         this.calendarType.emit(numberOfDays);
@@ -61,17 +69,12 @@ export class ToolbarComponent implements OnInit {
         if (numberOfDays === CalendarTypeEnum.day) {
             this.calendar = [new CalendarModel(date.getDate(), month, year)];
         } else if (numberOfDays === CalendarTypeEnum.week) {
-            const daysInWeek = this.calendarService.getDaysInSelectedWeek(date);
-            daysInWeek.forEach((day) => {
-                this.calendar.push(
-                    new CalendarModel(day.date.getDate(), month, year)
-                );
-            });
+            this.setDaysInWeek(date, month, year);
         } else if (numberOfDays === CalendarTypeEnum.month) {
-            const daysInMonth =
-                this.calendarService.getDaysInSelectedMonth(date);
-            for (let day = 1; day < daysInMonth + 1; day++) {
-                this.calendar.push(new CalendarModel(day, month, year));
+            this.setDaysInMonth(date, month, year);
+        } else if (numberOfDays === CalendarTypeEnum.year) {
+            for (let i = 1; i <= 12; i++) {
+                this.setDaysInMonth(date, i, year);
             }
         }
         this.numberOfDaysToShow.emit(this.calendar);
@@ -91,6 +94,7 @@ export class ToolbarComponent implements OnInit {
      */
     public updateDates(date: string) {
         this.selectedDate = date;
+        this.selectedDay.emit(this.selectedDate);
         this.setNumberOfDaysToShow(this.daysToShow);
     }
 
@@ -105,6 +109,39 @@ export class ToolbarComponent implements OnInit {
             );
             this.selectedCanton = this.cantonList[0];
             this.emitSelectedCanton(this.selectedCanton);
+        });
+    }
+
+    /**
+     * The function sets the number of days in a month for a given date, month, and year.
+     * @param {Date} date - The `date` parameter is the current date for which you want to set the days
+     * in the month.
+     * @param {number} month - The month parameter is a number that represents the month of the year.
+     * It should be a value between 1 and 12, where 1 represents January and 12 represents December.
+     * @param {number} year - The year parameter is the year for which you want to set the days in the
+     * month.
+     */
+    private setDaysInMonth(date: Date, month: number, year: number): void {
+        const daysInMonth = this.calendarService.getDaysInSelectedMonth(date);
+        for (let day = 1; day < daysInMonth + 1; day++) {
+            this.calendar.push(new CalendarModel(day, month, year));
+        }
+    }
+
+    /**
+     * The function sets the days in a week for a given date, month, and year.
+     * @param {Date} date - The date parameter is a Date object representing a specific date within the
+     * week for which you want to set the days in the calendar.
+     * @param {number} month - The month parameter is a number that represents the month of the year.
+     * It is used to set the month value for each CalendarModel object in the calendar array.
+     * @param {number} year - The year parameter is the year for which you want to set the days in the
+     * week.
+     */
+    private setDaysInWeek(date: Date, month: number, year: number): void {
+        this.calendarService.getDaysInSelectedWeek(date).forEach((day) => {
+            this.calendar.push(
+                new CalendarModel(day.date.getDate(), month, year)
+            );
         });
     }
 }

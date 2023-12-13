@@ -1,11 +1,13 @@
 <app-toolbar (numberOfDaysToShow)="setSelectedDays($event)"
              (cantonToShow)="setSelectedCanton($event)"
-             (calendarType)="setCalendarType($event)" />
+             (calendarType)="setCalendarType($event)"
+             (selectedDay)="setSelectedDay($event)" />
 
 <div class="calendar-days-container">
     @for (dayToShow of selectedDays; track dayToShow.day) {
-    <app-calendar-day [ngClass]="{'single': selectedDays.length === 1}"
-                      [dayToShow]="dayToShow"
+    <app-calendar-day [ngClass]="{'single': selectedDays.length === 1, 'holiday': dayToShow.dateType.dateType === dateTypeEnum.Holiday, 'pto': dayToShow.dateType.dateType === dateTypeEnum.Pto, 'work': dayToShow.dateType.dateType === dateTypeEnum.Work}"
+                      [calendarDay]="dayToShow"
+                      [selectedDay]="selectedDay"
                       [calendarType]="calendarType"
                       [selectedCanton]="selectedCanton" />
     }

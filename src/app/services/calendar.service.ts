@@ -5,11 +5,24 @@ import { WeekModel } from '../models/week.model';
     providedIn: 'root',
 })
 export class CalendarService {
+    /**
+     * The function `getDaysInSelectedMonth` returns the number of days in the selected month of a
+     * given date.
+     * @param {Date} date - The `date` parameter is a JavaScript `Date` object representing the
+     * selected month for which you want to determine the number of days.
+     * @returns The number of days in the selected month.
+     */
     public getDaysInSelectedMonth(date: Date): number {
         const month: number = date.getMonth();
         const year: number = date.getFullYear();
         return new Date(year, month + 1, 0).getDate();
     }
+    /**
+     * The function `getDaysInSelectedWeek` takes a date as input and returns an array of `WeekModel`
+     * objects representing the days of the week surrounding the input date.
+     * @param {Date} date - The `date` parameter is a `Date` object representing a specific date.
+     * @returns an array of WeekModel objects, which represent the days in the selected week.
+     */
     public getDaysInSelectedWeek(date: Date): WeekModel[] {
         const currentDay: number = date.getDay();
         const daysOfWeek = [
@@ -32,5 +45,15 @@ export class CalendarService {
             );
         }
         return daysInWeek;
+    }
+
+    /**
+     * The function setDateInTimezone takes a day as input and returns a string representation of that
+     * day with a specific timezone offset.
+     * @param {string} day - A string representing a specific day in the format "YYYY-MM-DD".
+     * @returns a string in the format `T00:00:00-03:00`.
+     */
+    public setDateInTimezone(day: string): string {
+        return `${day}T00:00:00-03:00`;
     }
 }

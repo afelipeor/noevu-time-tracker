@@ -1,6 +1,9 @@
 @if(dayToShow){
 <div class="calendar-day"
      [ngClass]="{'is-month': calendarType === allCalendarTypes.month}">
-    <p class="title">{{dayToShow.day}}</p>
+    <p class="title">{{dayToShow.day }} {{dayToShow.dayOfTheWeek}}</p>
+    <p>
+        {{dayToShow.dateType.holiday?.name}}
+    </p>
 </div>
 }

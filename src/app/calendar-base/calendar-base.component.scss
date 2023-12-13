@@ -16,5 +16,17 @@
         &.single {
             width: 100%;
         }
+
+        &.holiday {
+            background-color: $light-green;
+        }
+
+        &.pto {
+            background-color: $light-blue;
+        }
+
+        &.work {
+            background-color: $light-red;
+        }
     }
 }
