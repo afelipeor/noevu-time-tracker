@@ -1,14 +1,10 @@
-$media_queries: (
-    "mobile":
-        unquote(
-            $string: "only screen and (max-width: 667px)"
-        ),
-    "tablet":
-        unquote(
-            $string: "only screen and (min-width: 668px) and (max-width: 1024)"
-        ),
-    "desktop":
-        unquote(
-            $string: "only screen and (min-width: 1025)"
-        )
-);
+$screen-sm-min: 600px;
+$screen-md-min: 960px;
+$screen-lg-min: 1280px;
+$screen-xl-min: 1920px;
+
+$screen-xs-max: 599px;
+$screen-sm-max: 959px;
+$screen-md-max: 1279px;
+$screen-lg-max: 1919px;
+$screen-xl-max: 5000px;

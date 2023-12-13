@@ -3,7 +3,8 @@
 
 .toolbar-container {
     display: flex;
-    background-color: $beige;
+    flex-wrap: wrap;
+    background-color: $white;
     justify-content: space-between;
     padding: 1rem;
     overflow: hidden;
@@ -12,6 +13,7 @@
 
     .canton-select {
         background-color: $beige;
+        filter: brightness(1.1);
         height: 3rem;
         text-transform: uppercase;
     }
@@ -25,6 +27,7 @@
             padding: 0 0.5rem;
             text-transform: uppercase;
             background-color: $beige;
+            filter: brightness(1.1);
             border: 1px solid $blue;
         }
     }
@@ -44,7 +47,9 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.5s ease-in-out;
+            transition: all 0.2s ease-in-out;
+            background-color: $beige;
+            filter: brightness(1.1);
 
             &.checked {
                 background-color: $blue;
@@ -75,7 +80,7 @@
 
     input,
     select {
-        transition: all 0.5s ease-in-out;
+        transition: all 0.2s ease-in-out;
 
         &:hover,
         &:focus {
@@ -84,13 +89,38 @@
         }
     }
 
-    @include display(mobile) {
+    @include xs {
         height: auto;
         font-size: 1rem;
         flex-wrap: wrap;
 
-        .radio-buttons {
-            margin-top: 1rem;
+        input,
+        select {
+            margin-bottom: 1rem;
+        }
+
+        .days-to-show {
+            justify-content: center;
+            .radio-buttons {
+                width: 4.5rem;
+            }
+        }
+    }
+    @include sm {
+        height: auto;
+        font-size: 1rem;
+        flex-wrap: wrap;
+
+        input,
+        select {
+            margin-bottom: 1rem;
+        }
+
+        .days-to-show {
+            justify-content: center;
+            .radio-buttons {
+                width: 4.5rem;
+            }
         }
     }
 }
