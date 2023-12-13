@@ -87,6 +87,11 @@ export class CalendarBaseComponent {
         }
     }
 
+    /**
+     * The function `mapHolidays` takes in a list of holiday models and maps them to the selected days
+     * based on the calendar type.
+     * @param {HolidayModel[]} holidays - An array of HolidayModel objects.
+     */
     private mapHolidays(holidays: HolidayModel[]): void {
         let holidaysList: HolidayModel[] = [];
 
@@ -122,6 +127,13 @@ export class CalendarBaseComponent {
         return holiday ? [holiday] : [];
     }
 
+    /**
+     * The function `getHolidaysForWeek` takes a list of holidays and returns only the holidays that
+     * fall within the selected days of the week.
+     * @param {HolidayModel[]} holidayList - An array of HolidayModel objects, which represents a list
+     * of holidays.
+     * @returns an array of HolidayModel objects that fall within the selected week.
+     */
     private getHolidaysForWeek(holidayList: HolidayModel[]): HolidayModel[] {
         const holidaysInMonth = this.getHolidaysForMonth(holidayList);
         const holidaysInWeek: HolidayModel[] = [];
@@ -192,15 +204,18 @@ export class CalendarBaseComponent {
         }
     }
 
-    /**
-     * The function sets the date type of a given day to either "Pto" (Paid Time Off) if it's a weekend
-     * (Sunday or Saturday) or "Work" if it's a weekday.
-     * @param {CalendarModel} day - The parameter "day" is an object of type "CalendarModel". It
-     * represents a specific day in a calendar and contains information about the year, month, and day
-     * of that day.
-     */
+    /* The `setWeekends` function is used to determine whether a given day is a weekend or a weekday. It
+sets the `dateType` property of the `day` object accordingly. If the day is a Saturday or Sunday
+(represented by `date.getDay() === 0` or `date.getDay() === 6`), the `dateType` is set to `Pto`
+(short for "Paid Time Off"), indicating that it is a weekend. Otherwise, the `dateType` is set to
+`Work`, indicating that it is a weekday. */
+
     private setWeekends(day: CalendarModel) {
-        const date = new Date(`${day.year}-${day.month}-${day.day}`);
+        const date = new Date(
+            this.calendarService.setDateInTimezone(
+                `${day.year}-${day.month}-${day.day}`
+            )
+        );
 
         if (date.getDay() === 0 || date.getDay() === 6) {
             day.dateType = new DateTypeModel(this.dateTypeEnum.Pto);
