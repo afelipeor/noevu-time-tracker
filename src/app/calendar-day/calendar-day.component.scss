@@ -33,10 +33,17 @@
     }
     &.holiday,
     &.pto,
-    &.work,
-    &.disabled {
+    &.work {
         &:hover {
             filter: brightness(1.2);
+        }
+    }
+
+    &.disabled {
+        &.has-tooltip:hover,
+        &:hover {
+            filter: brightness(1);
+            transform: none;
         }
     }
 
