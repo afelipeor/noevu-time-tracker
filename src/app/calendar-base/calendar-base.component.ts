@@ -186,9 +186,9 @@ export class CalendarBaseComponent {
         }
 
         for (let day of this.selectedDays) {
-            this.setWeekends(day);
             this.matchHolidayToDate(day, holidaysList);
         }
+        this.setWorkdays(this.activeWorkdays);
     }
 
     /**
@@ -299,23 +299,6 @@ export class CalendarBaseComponent {
         }
 
         this.setDaysToShow(day);
-    }
-
-    /**
-     * The function sets the date type of a given day to either "Pto" (for weekends) or "Work" (for
-     * weekdays).
-     * @param {CalendarModel} day - The parameter "day" is an object of type CalendarModel.
-     */
-    private setWeekends(day: CalendarModel) {
-        const date = new Date(
-            this.calendarService.formatDateString(day.day, day.month, day.year)
-        );
-
-        if (date.getDay() === 0 || date.getDay() === 6) {
-            day.dateType = new DateTypeModel(this.allDateTypes.Pto);
-        } else {
-            day.dateType = new DateTypeModel(this.allDateTypes.Work);
-        }
     }
 
     /**
