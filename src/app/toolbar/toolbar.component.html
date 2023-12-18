@@ -9,6 +9,8 @@
                 (ngModelChange)="emitSelectedCanton($event)">
             @for(canton of cantonList; track canton.kanCode){
             <option [ngValue]="canton">{{canton.kanName}}</option>
+            }@empty {
+            <option>Getting Cantons....</option>
             }
         </select>
     </label>
