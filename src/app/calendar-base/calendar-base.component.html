@@ -1,7 +1,8 @@
 <app-toolbar (numberOfDaysToShow)="setSelectedDays($event)"
              (cantonToShow)="setSelectedCanton($event)"
              (calendarType)="setCalendarType($event)"
-             (selectedDay)="setSelectedDay($event)" />
+             (selectedDay)="setSelectedDay($event)"
+             (selectWorkdays)="setSelectWorkdays()" />
 
 <div class="calendar-days-container"
      [ngClass]="{'year':calendarType === allCalendarTypes.year}">

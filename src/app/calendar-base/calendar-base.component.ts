@@ -26,6 +26,7 @@ export class CalendarBaseComponent {
     public selectedCanton: CantonModel | null = null;
     public calendarType: string | null = null;
     public dateTypeEnum = DateTypeEnum;
+    public openSelectWorkdaysModal: boolean = false;
     public readonly monthNames: string[] = [
         'January',
         'February',
@@ -112,8 +113,20 @@ export class CalendarBaseComponent {
         return this.daysOfTheWeekNames[weekDay];
     }
 
+    /**
+     * The getWeekDay function returns the day of the week for the selected day.
+     * @returns The method is returning the day of the week as a number. If there is a selected day, it
+     * returns the day of the week for that selected day. Otherwise, it returns 0.
+     */
     public getWeekDay(): number {
         return this.selectedDay ? this.selectedDay.getDay() : 0;
+    }
+
+    /**
+     * The function toggles the value of the openSelectWorkdaysModal variable.
+     */
+    public setSelectWorkdays(): void {
+        this.openSelectWorkdaysModal = !this.openSelectWorkdaysModal;
     }
 
     /**

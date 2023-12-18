@@ -9,13 +9,36 @@
     padding: 1rem;
     overflow: hidden;
     color: $blue;
-    font-size: 1.2rem;
+
+    .select-workdays {
+        .configure-workdays {
+            border: 1px solid $blue;
+            display: flex;
+            text-transform: uppercase;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: $beige;
+            filter: brightness(1.1);
+            font-size: 1.2rem;
+            height: 3rem;
+            padding: 0 1rem;
+
+            &:hover {
+                font-weight: bold;
+                box-shadow: 2px 2px 0 $blue;
+            }
+        }
+    }
 
     .canton-select {
         background-color: $beige;
         filter: brightness(1.1);
         height: 3rem;
         text-transform: uppercase;
+        font-size: 1.2rem;
     }
 
     .select-date {

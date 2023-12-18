@@ -1,4 +1,8 @@
 <div class="toolbar-container">
+    <div class="select-workdays">
+        <button class="configure-workdays"
+                (click)="openSelectWorkdays()">Set workdays</button>
+    </div>
     <label class="canton-label">
         <select class="canton-select"
                 [(ngModel)]="selectedCanton"
