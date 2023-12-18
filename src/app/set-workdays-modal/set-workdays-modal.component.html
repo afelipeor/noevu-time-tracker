@@ -1,0 +1,30 @@
+<div class="set-workdays modal">
+    <div class="modal-content">
+        <div class="title-bar">
+            <h2>Set Workdays</h2>
+            <button class="close transparent"
+                    (click)="closeModal()"
+                    type="button">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <div class="modal-content-main">
+            <div class="days-of-the-week">
+                @for(day of daysOfTheWeekNames; track day){
+                <label [ngClass]="{'checked': workdays[$index]}">
+                    {{ day | slice:0:3 }}
+                    <input type="checkbox"
+                           [ngModel]="workdays[$index]"
+                           (ngModelChange)="workdays[$index] = !workdays[$index]">
+                </label>
+                }
+            </div>
+        </div>
+        <div class="modal-content-footer">
+            <button class="send"
+                    (click)="setWorkdays()">
+                Save
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,14 @@
 <app-toolbar (numberOfDaysToShow)="setSelectedDays($event)"
              (cantonToShow)="setSelectedCanton($event)"
              (calendarType)="setCalendarType($event)"
-             (selectedDay)="setSelectedDay($event)" />
+             (selectedDay)="setSelectedDay($event)"
+             (selectWorkdays)="openSelectWorkdaysModal = true" />
+
+@if(openSelectWorkdaysModal) {
+<app-set-workdays-modal [workdays]="activeWorkdays"
+                        (showModal)="openSelectWorkdaysModal = false"
+                        (activeWorkdays)="setActiveWorkdays($event)" />
+}
 
 <div class="calendar-days-container"
      [ngClass]="{'year':calendarType === allCalendarTypes.year}">
@@ -11,7 +18,7 @@
         <h4 class="single">
             {{daysOfTheWeekNames[getWeekDay()]}}
         </h4>
-        }@else {
+        } @else {
 
         @for(day of daysOfTheWeekNames; track day){
         <h4>{{ day}}</h4>

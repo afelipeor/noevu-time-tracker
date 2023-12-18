@@ -1,4 +1,8 @@
 <div class="toolbar-container">
+    <div class="select-workdays">
+        <button class="configure-workdays"
+                (click)="openSelectWorkdays()">Set workdays</button>
+    </div>
     <label class="canton-label">
         <select class="canton-select"
                 [(ngModel)]="selectedCanton"
@@ -18,12 +22,9 @@
     <div class="days-to-show">
         @for(ammount of ammountOfDays; track ammount){
         <label class="radio-buttons"
-               [for]="(ammount+'RadioButton')"
                [ngClass]="{'checked': daysToShow === ammount}">
             {{ammount}}
             <input type="radio"
-                   [id]="(ammount+'RadioButton')"
-                   name="ammountOfDays"
                    [value]="ammount"
                    (click)="setNumberOfDaysToShow(ammount)" />
         </label>
