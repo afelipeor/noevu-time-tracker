@@ -1,4 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./assets/styles/colors";
+@import "./assets/styles/mixins";
+@import "material-icons/iconfont/material-icons.css";
+
 *,
 *:before,
 *:after {
@@ -8,4 +11,54 @@ body {
     margin: 0px;
     padding: 0px;
     border-radius: 0px;
+
+    .modal {
+        display: flex;
+        position: fixed;
+        z-index: 100000;
+        width: 100vw;
+        height: 100vh;
+        background-color: $transparent-gray;
+        top: 0;
+        color: $blue;
+
+        &-content {
+            width: 50%;
+            height: 50%;
+            background-color: $beige;
+            filter: brightness(1.1);
+            border-radius: 0.5rem;
+            border: 1px solid $blue;
+            margin: auto;
+            padding: 1rem;
+            font-size: 1.2rem;
+
+            .title-bar {
+                width: 100%;
+
+                h2 {
+                    text-transform: uppercase;
+                    text-align: center;
+                }
+
+                .close {
+                    position: absolute;
+                    right: 1rem;
+                    top: 1rem;
+                    height: auto;
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-shadow: 0px 0px 1px $blue;
+                    }
+
+                    &:active {
+                        text-shadow: none;
+                    }
+                }
+            }
+        }
+    }
 }

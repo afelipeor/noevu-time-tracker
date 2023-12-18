@@ -5,7 +5,7 @@
              (selectWorkdays)="setSelectWorkdays()" />
 
 @if(openSelectWorkdaysModal) {
-<app-set-workdays-modal />
+<app-set-workdays-modal (showModal)="setSelectWorkdays()" />
 }
 
 <div class="calendar-days-container"

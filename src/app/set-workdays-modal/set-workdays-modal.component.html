@@ -1,1 +1,19 @@
-<p>set-workdays-modal works!</p>
+<div class="set-workdays modal">
+    <div class="modal-content">
+        <div class="title-bar">
+            <h2>Set Workdays</h2>
+            <button class="close"
+                    (click)="closeModal()"
+                    type="button">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        @for(day of daysOfTheWeekNames; track day){
+        <label [for]="day + 'Checkbox'">
+            {{ day }}
+            <input [id]="day + 'Checkbox'"
+                   type="checkbox">
+        </label>
+        }
+    </div>
+</div>
