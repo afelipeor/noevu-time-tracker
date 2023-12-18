@@ -74,11 +74,11 @@
         display: flex;
         flex-direction: column;
         border: 3px solid $blue;
-        margin: 0.5rem;
         width: calc(50% - 1rem);
         height: auto;
         flex-wrap: wrap;
         color: $blue;
+        margin: 0.5rem auto;
 
         @include xs {
             width: 95%;
