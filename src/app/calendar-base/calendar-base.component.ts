@@ -6,12 +6,13 @@ import { CalendarTypeEnum } from '../enums/calendar-types.enum';
 import { DateTypeEnum } from '../enums/date-types.enum';
 import { CalendarModel } from '../models/calendar.model';
 import { CantonModel } from '../models/canton.model';
-import { DateTypeModel } from '../models/dateType.model';
+import { DateTypeModel } from '../models/date-type.model';
 import { HolidayModel } from '../models/holliday.model';
 import { CalendarService } from '../services/calendar.service';
 import { HolidaysService } from '../services/holiday.service';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { SetWorkdaysModalComponent } from '../set-workdays-modal/set-workdays-modal.component';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { daysOfTheWeekNames } from '../constants/days-of-the-week-names.const';
 
 @Component({
     selector: 'app-calendar-base',
@@ -47,15 +48,7 @@ export class CalendarBaseComponent {
         'November',
         'December',
     ];
-    public readonly daysOfTheWeekNames = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-    ];
+    public readonly daysOfTheWeekNames = daysOfTheWeekNames;
     public allCalendarTypes = CalendarTypeEnum;
 
     constructor(

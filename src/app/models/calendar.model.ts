@@ -1,6 +1,5 @@
 import { DateTypeEnum } from '../enums/date-types.enum';
-import { DateTypeModel } from './dateType.model';
-import { HolidayModel } from './holliday.model';
+import { DateTypeModel } from './date-type.model';
 
 export class CalendarModel {
     day: number;

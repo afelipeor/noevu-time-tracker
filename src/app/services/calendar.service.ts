@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { daysOfTheWeekNames } from '../constants/days-of-the-week-names.const';
 import { CalendarModel } from '../models/calendar.model';
 import { WeekModel } from '../models/week.model';
 
@@ -26,15 +27,7 @@ export class CalendarService {
      */
     public getDaysInSelectedWeek(date: Date): WeekModel[] {
         const currentDay: number = date.getDay();
-        const daysOfWeek = [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday',
-        ];
+        const daysOfWeek = daysOfTheWeekNames;
         const daysInWeek = [];
 
         for (let i = 0; i < 7; i++) {
