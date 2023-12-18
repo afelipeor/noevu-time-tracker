@@ -10,29 +10,6 @@
     overflow: hidden;
     color: $blue;
 
-    .select-workdays {
-        .configure-workdays {
-            border: 1px solid $blue;
-            display: flex;
-            text-transform: uppercase;
-            text-align: center;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            background-color: $beige;
-            filter: brightness(1.1);
-            font-size: 1.2rem;
-            height: 3rem;
-            padding: 0 1rem;
-
-            &:hover {
-                font-weight: bold;
-                box-shadow: 2px 2px 0 $blue;
-            }
-        }
-    }
-
     .canton-select {
         background-color: $beige;
         filter: brightness(1.1);
@@ -131,6 +108,24 @@
         }
     }
     @include sm {
+        height: auto;
+        font-size: 1rem;
+        flex-wrap: wrap;
+
+        .select-workdays,
+        input,
+        select {
+            margin-bottom: 1rem;
+        }
+
+        .days-to-show {
+            justify-content: center;
+            .radio-buttons {
+                width: 4.5rem;
+            }
+        }
+    }
+    @include md {
         height: auto;
         font-size: 1rem;
         flex-wrap: wrap;

@@ -2,10 +2,12 @@
              (cantonToShow)="setSelectedCanton($event)"
              (calendarType)="setCalendarType($event)"
              (selectedDay)="setSelectedDay($event)"
-             (selectWorkdays)="setSelectWorkdays()" />
+             (selectWorkdays)="openSelectWorkdaysModal = true" />
 
 @if(openSelectWorkdaysModal) {
-<app-set-workdays-modal (showModal)="setSelectWorkdays()" />
+<app-set-workdays-modal [workdays]="activeWorkdays"
+                        (showModal)="openSelectWorkdaysModal = false"
+                        (activeWorkdays)="setActiveWorkdays($event)" />
 }
 
 <div class="calendar-days-container"

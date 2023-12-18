@@ -11,6 +11,7 @@ body {
     margin: 0px;
     padding: 0px;
     border-radius: 0px;
+    font-family: serif;
 
     .modal {
         display: flex;
@@ -58,6 +59,47 @@ body {
                         text-shadow: none;
                     }
                 }
+            }
+
+            &-main {
+                height: 70%;
+            }
+
+            &-footer {
+                padding: 0 1rem;
+            }
+
+            @include xs {
+                width: 95%;
+                height: 80%;
+            }
+
+            @include sm {
+                width: 95%;
+                height: 80%;
+            }
+        }
+    }
+
+    button {
+        border: 1px solid $blue;
+        display: flex;
+        text-transform: uppercase;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        background-color: $beige;
+        filter: brightness(1.1);
+        font-size: 1.2rem;
+        height: 3rem;
+        padding: 0 1rem;
+
+        &:not(.transparent) {
+            &:hover {
+                font-weight: bold;
+                box-shadow: 2px 2px 0 $blue;
             }
         }
     }
