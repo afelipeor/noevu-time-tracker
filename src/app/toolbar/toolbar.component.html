@@ -1,17 +1,16 @@
 <div class="toolbar-container">
-    <select name="canton-select"
-            class="canton-select"
-            [(ngModel)]="selectedCanton"
-            (ngModelChange)="emitSelectedCanton($event)">
-        @for(canton of cantonList; track canton.kanCode){
-        <option [ngValue]="canton">{{canton.kanName}}</option>
-        }
-    </select>
+    <label class="canton-label">
+        <select class="canton-select"
+                [(ngModel)]="selectedCanton"
+                (ngModelChange)="emitSelectedCanton($event)">
+            @for(canton of cantonList; track canton.kanCode){
+            <option [ngValue]="canton">{{canton.kanName}}</option>
+            }
+        </select>
+    </label>
     <div class="select-date">
-        <label for="date"
-               class="date-selector">
-            <input id="dateSelector"
-                   type="date"
+        <label class="date-selector">
+            <input type="date"
                    [ngModel]="selectedDate | date:'yyyy-MM-dd'"
                    (ngModelChange)="updateDates($event)">
         </label>
