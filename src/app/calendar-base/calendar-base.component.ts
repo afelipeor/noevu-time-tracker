@@ -11,11 +11,17 @@ import { HolidayModel } from '../models/holliday.model';
 import { CalendarService } from '../services/calendar.service';
 import { HolidaysService } from '../services/holiday.service';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { SetWorkdaysModalComponent } from '../set-workdays-modal/set-workdays-modal.component';
 
 @Component({
     selector: 'app-calendar-base',
     standalone: true,
-    imports: [ToolbarComponent, CalendarDayComponent, CommonModule],
+    imports: [
+        ToolbarComponent,
+        CalendarDayComponent,
+        CommonModule,
+        SetWorkdaysModalComponent,
+    ],
     templateUrl: './calendar-base.component.html',
     styleUrl: './calendar-base.component.scss',
 })

@@ -4,6 +4,10 @@
              (selectedDay)="setSelectedDay($event)"
              (selectWorkdays)="setSelectWorkdays()" />
 
+@if(openSelectWorkdaysModal) {
+<app-set-workdays-modal />
+}
+
 <div class="calendar-days-container"
      [ngClass]="{'year':calendarType === allCalendarTypes.year}">
     @if(calendarType !== allCalendarTypes.year){
@@ -12,7 +16,7 @@
         <h4 class="single">
             {{daysOfTheWeekNames[getWeekDay()]}}
         </h4>
-        }@else {
+        } @else {
 
         @for(day of daysOfTheWeekNames; track day){
         <h4>{{ day}}</h4>
