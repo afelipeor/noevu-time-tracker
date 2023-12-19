@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { daysOfTheWeekNames } from '../constants/days-of-the-week-names.const';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
     selector: 'app-set-workdays-modal',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, ModalComponent],
     templateUrl: './set-workdays-modal.component.html',
     styleUrl: './set-workdays-modal.component.scss',
 })
@@ -15,6 +16,7 @@ export class SetWorkdaysModalComponent {
     @Output() showModal: EventEmitter<boolean> = new EventEmitter();
     @Output() activeWorkdays: EventEmitter<boolean[]> = new EventEmitter();
     public readonly daysOfTheWeekNames = daysOfTheWeekNames;
+    public readonly title = 'Set Workdays';
 
     /**
      * The function closeModal emits a boolean value of false through the showModal event.
