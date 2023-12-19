@@ -35,11 +35,10 @@ export class ToolbarComponent implements OnInit {
     constructor(
         private cantonService: CantonService,
         private calendarService: CalendarService
-    ) {
-        this.getCantons();
-    }
+    ) {}
 
     ngOnInit() {
+        this.getCantons();
         this.selectedDay.emit(
             this.selectedDate.replace(/(\d\d)\/(\d\d)\/(\d{4})/, '$3-$1-$2')
         );

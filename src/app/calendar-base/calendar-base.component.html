@@ -39,6 +39,7 @@
     </div>
     } @else {
     @for(month of monthsInYear; track month; let monthIndex = $index){
+    @defer(on viewport){
     <div class="month-block">
         <h4>{{monthNames[monthIndex]}}</h4>
         <div class="week-bar">
@@ -56,6 +57,9 @@
             }
         </div>
     </div>
+    }@placeholder {
+    <div class="month-block"></div>
+    }
     }
     }
 </div>

@@ -101,7 +101,6 @@ export class CalendarBaseComponent {
         this.selectedDay = new Date(
             this.calendarService.setDateInTimezone(day)
         );
-        this.getHolidays();
     }
 
     /**

@@ -6,7 +6,8 @@
     <label class="canton-label">
         <select class="canton-select"
                 [(ngModel)]="selectedCanton"
-                (ngModelChange)="emitSelectedCanton($event)">
+                (ngModelChange)="emitSelectedCanton($event)"
+                aria-label="Select Canton">
             @for(canton of cantonList; track canton.kanCode){
             <option [ngValue]="canton">{{canton.kanName}}</option>
             }@empty {
@@ -18,7 +19,8 @@
         <label class="date-selector">
             <input type="date"
                    [ngModel]="selectedDate | date:'yyyy-MM-dd'"
-                   (ngModelChange)="updateDates($event)">
+                   (ngModelChange)="updateDates($event)"
+                   aria-label="Select Date">
         </label>
     </div>
     <div class="days-to-show">
