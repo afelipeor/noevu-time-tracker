@@ -1,53 +1,45 @@
 @import "../../assets/styles/colors";
 @import "../../assets/styles/mixins";
 
-.modal {
-    &-content {
-        flex-direction: column;
+.days-of-the-week {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 
-        &-main {
-            .days-of-the-week {
-                display: flex;
-                width: fit-content;
-                margin: 0 auto;
-                justify-content: flex-start;
-                flex-wrap: wrap;
+    label {
+        height: 3rem;
+        width: 5rem;
+        padding: 0 0.5rem;
+        border: 1px solid $blue;
+        display: flex;
+        text-transform: uppercase;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        background-color: $beige;
+        filter: brightness(1.1);
+        margin: 0 0.5rem 0.5rem 0;
 
-                label {
-                    height: 3rem;
-                    width: 5rem;
-                    padding: 0 0.5rem;
-                    border: 1px solid $blue;
-                    display: flex;
-                    text-transform: uppercase;
-                    text-align: center;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    transition: all 0.2s ease-in-out;
-                    background-color: $beige;
-                    filter: brightness(1.1);
-                    margin: 0 0.5rem 0.5rem 0;
+        &:last-of-type {
+            margin-right: 0;
+        }
 
-                    &:last-of-type {
-                        margin-right: 0;
-                    }
+        input {
+            display: none;
+        }
 
-                    input {
-                        display: none;
-                    }
+        &.checked {
+            background-color: $blue;
+            color: $beige;
+        }
 
-                    &.checked {
-                        background-color: $blue;
-                        color: $beige;
-                    }
-
-                    &:hover {
-                        font-weight: bold;
-                        box-shadow: 2px 2px 0 $blue;
-                    }
-                }
-            }
+        &:hover {
+            font-weight: bold;
+            box-shadow: 2px 2px 0 $blue;
         }
     }
 }
