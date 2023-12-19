@@ -75,9 +75,12 @@ export class ToolbarComponent implements OnInit {
             this.setDaysInMonth(date, month, year);
         } else if (numberOfDays === CalendarTypeEnum.year) {
             for (let i = 1; i <= 12; i++) {
-                const monthDate = new Date(
-                    this.calendarService.formatDateString(1, i, year)
+                const monthDate = this.calendarService.createNewDate(
+                    1,
+                    i,
+                    year
                 );
+
                 this.setDaysInMonth(monthDate, i, year);
             }
         }
