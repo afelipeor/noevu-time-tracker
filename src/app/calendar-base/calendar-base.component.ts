@@ -2,20 +2,27 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { take } from 'rxjs';
 import { CalendarDayComponent } from '../calendar-day/calendar-day.component';
+import { daysOfTheWeekNames } from '../constants/days-of-the-week-names.const';
 import { CalendarTypeEnum } from '../enums/calendar-types.enum';
 import { DateTypeEnum } from '../enums/date-types.enum';
 import { CalendarModel } from '../models/calendar.model';
 import { CantonModel } from '../models/canton.model';
-import { DateTypeModel } from '../models/dateType.model';
+import { DateTypeModel } from '../models/date-type.model';
 import { HolidayModel } from '../models/holliday.model';
 import { CalendarService } from '../services/calendar.service';
 import { HolidaysService } from '../services/holiday.service';
+import { SetWorkdaysModalComponent } from '../set-workdays-modal/set-workdays-modal.component';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 
 @Component({
     selector: 'app-calendar-base',
     standalone: true,
-    imports: [ToolbarComponent, CalendarDayComponent, CommonModule],
+    imports: [
+        ToolbarComponent,
+        CalendarDayComponent,
+        CommonModule,
+        SetWorkdaysModalComponent,
+    ],
     templateUrl: './calendar-base.component.html',
     styleUrl: './calendar-base.component.scss',
 })
@@ -25,7 +32,17 @@ export class CalendarBaseComponent {
     public selectedDay: Date | null = null;
     public selectedCanton: CantonModel | null = null;
     public calendarType: string | null = null;
-    public dateTypeEnum = DateTypeEnum;
+    public allDateTypes = DateTypeEnum;
+    public openSelectWorkdaysModal: boolean = false;
+    public activeWorkdays: boolean[] = [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+    ];
     public readonly monthNames: string[] = [
         'January',
         'February',
@@ -40,15 +57,7 @@ export class CalendarBaseComponent {
         'November',
         'December',
     ];
-    public readonly daysOfTheWeekNames = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-    ];
+    public readonly daysOfTheWeekNames = daysOfTheWeekNames;
     public allCalendarTypes = CalendarTypeEnum;
 
     constructor(
@@ -103,17 +112,35 @@ export class CalendarBaseComponent {
      * @returns the name of the day of the week for the given date.
      */
     public setDaysToShow(day: CalendarModel): string {
-        const dateString = this.calendarService.formatDateString(
+        const date = this.calendarService.createNewDate(
             day.day,
             day.month,
             day.year
         );
-        const weekDay = new Date(dateString).getDay();
+        const weekDay = date.getDay();
         return this.daysOfTheWeekNames[weekDay];
     }
 
+    /**
+     * The getWeekDay function returns the day of the week for the selected day.
+     * @returns The method is returning the day of the week as a number. If there is a selected day, it
+     * returns the day of the week for that selected day. Otherwise, it returns 0.
+     */
     public getWeekDay(): number {
         return this.selectedDay ? this.selectedDay.getDay() : 0;
+    }
+
+    /**
+     * The function `setActiveWorkdays` sets the active workdays based on the provided boolean array
+     * and updates the workdays accordingly.
+     * @param {boolean[]} activeWorkdays - An array of booleans representing the active workdays. Each
+     * element in the array corresponds to a day of the week, starting from Sunday (index 0) to
+     * Saturday (index 6). If the value is true, it means that the corresponding day is an active
+     * workday.
+     */
+    public setActiveWorkdays(activeWorkdays: boolean[]) {
+        this.activeWorkdays = activeWorkdays;
+        this.setWorkdays(activeWorkdays);
     }
 
     /**
@@ -159,9 +186,9 @@ export class CalendarBaseComponent {
         }
 
         for (let day of this.selectedDays) {
-            this.setWeekends(day);
             this.matchHolidayToDate(day, holidaysList);
         }
+        this.setWorkdays(this.activeWorkdays);
     }
 
     /**
@@ -265,30 +292,13 @@ export class CalendarBaseComponent {
                 day.day === holidayDate.getDate()
             ) {
                 day.dateType = new DateTypeModel(
-                    this.dateTypeEnum.Holiday,
+                    this.allDateTypes.Holiday,
                     holiday
                 );
             }
         }
 
         this.setDaysToShow(day);
-    }
-
-    /**
-     * The function sets the date type of a given day to either "Pto" (for weekends) or "Work" (for
-     * weekdays).
-     * @param {CalendarModel} day - The parameter "day" is an object of type CalendarModel.
-     */
-    private setWeekends(day: CalendarModel) {
-        const date = new Date(
-            this.calendarService.formatDateString(day.day, day.month, day.year)
-        );
-
-        if (date.getDay() === 0 || date.getDay() === 6) {
-            day.dateType = new DateTypeModel(this.dateTypeEnum.Pto);
-        } else {
-            day.dateType = new DateTypeModel(this.dateTypeEnum.Work);
-        }
     }
 
     /**
@@ -311,6 +321,30 @@ export class CalendarBaseComponent {
                 .reverse()
                 .forEach((day) => daysInMonth.unshift(day));
             this.monthsInYear.push(daysInMonth);
+        }
+    }
+
+    /**
+     * The function sets the date type of selected days based on whether they are active workdays or
+     * not.
+     * @param {boolean[]} activeWorkdays - An array of boolean values representing whether each day of
+     * the week is an active workday or not. The array should have a length of 7, where the index 0
+     * represents Sunday, index 1 represents Monday, and so on.
+     */
+    private setWorkdays(activeWorkdays: boolean[]) {
+        for (let day of this.selectedDays) {
+            if (day.dateType.dateType !== this.allDateTypes.Holiday) {
+                const dayAsDate: Date = this.calendarService.createNewDate(
+                    day.day,
+                    day.month,
+                    day.year
+                );
+                if (activeWorkdays[dayAsDate.getDay()]) {
+                    day.dateType.dateType = this.allDateTypes.Work;
+                } else {
+                    day.dateType.dateType = this.allDateTypes.Pto;
+                }
+            }
         }
     }
 }

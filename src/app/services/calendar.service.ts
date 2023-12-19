@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { daysOfTheWeekNames } from '../constants/days-of-the-week-names.const';
 import { CalendarModel } from '../models/calendar.model';
 import { WeekModel } from '../models/week.model';
 
@@ -26,15 +27,7 @@ export class CalendarService {
      */
     public getDaysInSelectedWeek(date: Date): WeekModel[] {
         const currentDay: number = date.getDay();
-        const daysOfWeek = [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday',
-        ];
+        const daysOfWeek = daysOfTheWeekNames;
         const daysInWeek = [];
 
         for (let i = 0; i < 7; i++) {
@@ -76,6 +69,19 @@ export class CalendarService {
     }
 
     /**
+     * The function createNewDate takes in day, month, and year as parameters and returns a
+     *  date.
+     * @param {number} day - The day parameter is a number representing the day of the month.
+     * @param {number} month - The `month` parameter is a number representing the month of the date. It
+     * should be a value between 1 and 12, where 1 represents January and 12 represents December.
+     * @param {number} year - The year parameter is a number that represents the year.
+     * @returns a Date object.
+     */
+    public createNewDate(day: number, month: number, year: number): Date {
+        return new Date(this.formatDateString(day, month, year));
+    }
+
+    /**
      * The function `getDaysInPreviousMonth` returns an array of `CalendarModel` objects representing
      * the days in the previous month before a given date.
      * @param {number} day - The day of the month for which you want to get the previous month's days.
@@ -99,18 +105,16 @@ export class CalendarService {
         if (dayWeekDay !== 0) {
             for (let i = 0; i < dayWeekDay; i++) {
                 const diff = i - dayWeekDay + 1;
-                const previousMonth = new Date(
-                    this.formatDateString(day, month - 1, year)
-                );
+                const previousMonth = this.createNewDate(day, month - 1, year);
+
                 const previousMonthDays =
                     this.getDaysInSelectedMonth(previousMonth);
-                const previousDay = new Date(
-                    this.formatDateString(
-                        previousMonthDays + diff,
-                        previousMonth.getMonth() + 1,
-                        previousMonth.getFullYear()
-                    )
+                const previousDay = this.createNewDate(
+                    previousMonthDays + diff,
+                    previousMonth.getMonth() + 1,
+                    previousMonth.getFullYear()
                 );
+
                 calendar.push(
                     new CalendarModel(
                         previousDay.getDate(),

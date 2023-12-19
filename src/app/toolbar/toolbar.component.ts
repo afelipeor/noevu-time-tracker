@@ -22,6 +22,7 @@ export class ToolbarComponent implements OnInit {
         new EventEmitter();
     @Output() calendarType: EventEmitter<string> = new EventEmitter();
     @Output() selectedDay: EventEmitter<string> = new EventEmitter();
+    @Output() selectWorkdays: EventEmitter<boolean> = new EventEmitter();
 
     public cantonList: CantonModel[] = [];
     public calendarEnum: CalendarTypesType = CalendarTypeEnum;
@@ -74,9 +75,12 @@ export class ToolbarComponent implements OnInit {
             this.setDaysInMonth(date, month, year);
         } else if (numberOfDays === CalendarTypeEnum.year) {
             for (let i = 1; i <= 12; i++) {
-                const monthDate = new Date(
-                    this.calendarService.formatDateString(1, i, year)
+                const monthDate = this.calendarService.createNewDate(
+                    1,
+                    i,
+                    year
                 );
+
                 this.setDaysInMonth(monthDate, i, year);
             }
         }
@@ -99,6 +103,14 @@ export class ToolbarComponent implements OnInit {
         this.selectedDate = date;
         this.selectedDay.emit(this.selectedDate);
         this.setNumberOfDaysToShow(this.daysToShow);
+    }
+
+    /**
+     * The function "openSelectWorkdays" emits a boolean value of true through the "selectWorkdays"
+     * event.
+     */
+    public openSelectWorkdays(): void {
+        this.selectWorkdays.emit(true);
     }
 
     /**
