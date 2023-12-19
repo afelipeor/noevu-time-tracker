@@ -29,12 +29,10 @@ export class CalendarDayComponent implements OnInit {
 
     ngOnInit(): void {
         if (this.dayToShow) {
-            this.dayToShowAsDate = new Date(
-                this.calendarService.formatDateString(
-                    this.dayToShow.day,
-                    this.dayToShow.month,
-                    this.dayToShow.year
-                )
+            this.dayToShowAsDate = this.calendarService.createNewDate(
+                this.dayToShow.day,
+                this.dayToShow.month,
+                this.dayToShow.year
             );
             this.dayToShowWeekDay = this.dayToShowAsDate.getDay();
         }

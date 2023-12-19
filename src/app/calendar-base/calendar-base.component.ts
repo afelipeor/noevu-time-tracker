@@ -112,12 +112,12 @@ export class CalendarBaseComponent {
      * @returns the name of the day of the week for the given date.
      */
     public setDaysToShow(day: CalendarModel): string {
-        const dateString = this.calendarService.formatDateString(
+        const date = this.calendarService.createNewDate(
             day.day,
             day.month,
             day.year
         );
-        const weekDay = new Date(dateString).getDay();
+        const weekDay = date.getDay();
         return this.daysOfTheWeekNames[weekDay];
     }
 
@@ -334,12 +334,10 @@ export class CalendarBaseComponent {
     private setWorkdays(activeWorkdays: boolean[]) {
         for (let day of this.selectedDays) {
             if (day.dateType.dateType !== this.allDateTypes.Holiday) {
-                const dayAsDate: Date = new Date(
-                    this.calendarService.formatDateString(
-                        day.day,
-                        day.month,
-                        day.year
-                    )
+                const dayAsDate: Date = this.calendarService.createNewDate(
+                    day.day,
+                    day.month,
+                    day.year
                 );
                 if (activeWorkdays[dayAsDate.getDay()]) {
                     day.dateType.dateType = this.allDateTypes.Work;
